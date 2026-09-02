@@ -13,17 +13,15 @@ const CONTENT = {
   familyName:   'घोले परिवार',
   hostName:     'श्री. निनाद घोले',
   hostPhone:    '+919999999999',
-  hostCity:     'पुणे, महाराष्ट्र',
-  mapsLink:     'https://maps.google.com/?q=Pune+Maharashtra',
+  hostCity:     'मुंबई, महाराष्ट्र',
+  mapsLink:     'https://maps.google.com/?q=Mumbai+Maharashtra',
   year:         '२०२६',
 
   events: [
-    { label:'उपआयोजन', title:'सत्यनारायण पूजा',      date:'१६ ऑगस्ट २०२६',     times:['🌆 सायंकाळी ६:००'] },
-    { label:'दिवस १',  title:'प्राणप्रतिष्ठा',         date:'१४ सप्टेंबर २०२६',  times:['🌅 सकाळी ८:००'] },
-    { label:'दि. १४–२१', title:'आरती व पूजन',          date:'दररोज',              times:['🌅 सकाळी ८:००', '🌆 सायंकाळी ७:३०'] },
-    { label:'दररोज',  title:'अथर्वशीर्ष पठण',         date:'१४ – २१ सप्टेंबर', times:['🌅 सकाळी ९:००'] },
-    { label:'विशेष',   title:'महाप्रसाद',              date:'रविवार, २० सप्टेंबर',times:['🌆 सायंकाळी ८:००'] },
-    { label:'अंतिम',   title:'विसर्जन',               date:'२१ सप्टेंबर २०२६',  times:['🌅 सकाळी १०:००'] },
+    { label:'उपआयोजन', title:'सत्यनारायण पूजा',   date:'१६ ऑगस्ट २०२६',    times:['🌆 सायंकाळी ८:००', '३१६ महाप्रसाद'] },
+    { label:'दिवस १',  title:'प्राणप्रतिष्ठा (स्थापना)', date:'१४ सप्टेंबर २०२६', times:['🌅 सकाळी १०:००'] },
+    { label:'दररोज',  title:'अथर्वशीर्ष पठण',       date:'१४ – १९ सप्टेंबर', times:[] },
+    { label:'अंतिम',   title:'विसर्जन',               date:'१९ सप्टेंबर २०२६', times:['🌆 सायंकाळी ४:००'] },
   ],
 };
 
@@ -60,7 +58,6 @@ const CONTENT = {
     setTimeout(() => {
       splash.style.display = 'none';
       initReveal();
-      initCarousel();
     }, 800);
   }
 

@@ -34,6 +34,34 @@
 
 html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 
+/* ── DEVANAGARI LIGATURE FIX ──
+   letter-spacing breaks conjunct clusters (e.g. बाप्पा → बाप्‍पा).
+   Reset on all Devanagari display text. */
+[lang="mr"], [lang="hi"], .f-display,
+.title-main, .title-super, .title-year,
+.hero-chant, .blessing-chip,
+.sched-heading, .sched-title, .sched-date, .sched-day-badge,
+.sched-time-pill, .sched-mahaprasad, .mahaprasad-label,
+.banner-heading, .ticket-family,
+.host-name, .host-sub, .host-family-line,
+.details-heading, .details-date, .details-aarti-label,
+.details-blessing, .dt-label, .dt-val,
+.footer-line, .footer-sub, .footer-family,
+.topbar-title, .prep-heading,
+.hero-msg, .ticket-addr, .ticket-label, .ticket-welcome {
+  font-feature-settings: "liga" 1, "clig" 1, "calt" 1, "kern" 1;
+  -webkit-font-feature-settings: "liga" 1, "clig" 1, "calt" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Zero out letter-spacing on elements where conjuncts appear */
+.title-main, .hero-chant, .sched-heading, .sched-title,
+.banner-heading, .ticket-family, .host-name,
+.details-heading, .footer-line, .prep-heading,
+.blessing-chip, .topbar-title {
+  letter-spacing: 0 !important;
+}
+
 body {
   font-family: var(--f-body);
   background: var(--cream);
@@ -364,11 +392,12 @@ img { display:block; max-width:100%; }
 .hero-idol:hover { transform: scale(1.025); }
 
 .hero-chant {
-  font-family: var(--f-display);
+  font-family: var(--f-body);
   font-size: 1.9rem;
+  font-weight: 700;
   color: var(--gold);
   text-shadow: 0 0 24px rgba(200,146,42,.2);
-  letter-spacing: .03em;
+  letter-spacing: 0;
   margin-bottom: 16px;
 }
 
@@ -386,7 +415,7 @@ img { display:block; max-width:100%; }
   background: linear-gradient(120deg, var(--maroon) 0%, var(--maroon-mid) 100%);
   color: var(--gold-lt);
   font-size: .73rem;
-  letter-spacing: .09em;
+  letter-spacing: 0;
   border-radius: 4px;
   border: 1px solid rgba(200,146,42,.22);
   box-shadow: 0 4px 18px rgba(59,10,26,.28);
@@ -693,6 +722,26 @@ img { display:block; max-width:100%; }
 }
 .tp-icon { font-size: .85rem; }
 
+/* महाप्रसाद inline row inside सत्यनारायण card */
+.sched-mahaprasad {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 7px 12px;
+  background: rgba(255,215,0,.07);
+  border: 1px solid rgba(255,215,0,.18);
+  border-radius: 4px;
+}
+.mahaprasad-icon { font-size: .9rem; }
+.mahaprasad-label {
+  font-family: var(--f-display);
+  font-size: .84rem;
+  color: var(--gold-lt);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
 /* Sub-event card */
 .sub-event {
   border-left-color: rgba(245,166,35,.6);
@@ -808,7 +857,7 @@ img { display:block; max-width:100%; }
 }
 
 /* ════════════════════════════════════════════════
-   §8 · PREPARATIONS
+   §8 · AARTI SECTION
 ════════════════════════════════════════════════ */
 .s-prep {
   background: linear-gradient(180deg, var(--cream) 0%, #FDE8C8 55%, var(--cream) 100%);
@@ -824,110 +873,38 @@ img { display:block; max-width:100%; }
   letter-spacing: .05em;
 }
 
-/* ── Carousel ── */
-.carousel-wrap {
+/* ── Aarti image ── */
+.aarti-img-wrap {
   width: 100%;
-  position: relative;
+  border-radius: 10px;
   overflow: hidden;
-}
-
-.carousel-track {
-  display: flex;
-  gap: 14px;
-  transition: transform .5s cubic-bezier(.4,0,.2,1);
-  cursor: grab;
-  will-change: transform;
-}
-.carousel-track.dragging {
-  transition: none;
-  cursor: grabbing;
-}
-
-.carousel-slide { flex-shrink: 0; width: calc(100% - 40px); }
-
-.slide-img-wrap {
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--maroon-dk);
-  box-shadow: 0 4px 22px rgba(0,0,0,.12);
   position: relative;
+  box-shadow: 0 6px 28px rgba(0,0,0,.18), 0 0 0 2px rgba(200,146,42,.22);
+  margin-bottom: 10px;
 }
 
-.slide-img {
+.aarti-img {
   width: 100%;
-  height: 230px;
+  height: 280px;
   object-fit: cover;
+  object-position: center top;
   display: block;
-  transition: transform .4s ease;
+  transition: transform .5s ease;
+  filter: brightness(1.04) saturate(1.05);
 }
-.slide-img-wrap:hover .slide-img { transform: scale(1.03); }
+.aarti-img-wrap:hover .aarti-img { transform: scale(1.025); }
 
-.slide-caption {
+.aarti-img-caption {
   position: absolute;
-  bottom: 0; left:0; right:0;
-  padding: 28px 14px 12px;
-  background: linear-gradient(transparent, rgba(0,0,0,.55));
+  bottom: 0; left: 0; right: 0;
+  padding: 28px 16px 12px;
+  background: linear-gradient(transparent, rgba(59,10,26,.72));
   font-family: var(--f-display);
-  font-size: .85rem;
-  color: #fff;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
-}
-
-/* Placeholder slot */
-.slide-placeholder {
-  height: 230px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(59,10,26,.08), rgba(59,10,26,.04));
-  border: 2px dashed rgba(200,146,42,.25);
-  gap: 8px;
-}
-.placeholder-icon { font-size: 2rem; opacity:.4; }
-.placeholder-text  { font-size:.78rem; color:var(--gold); opacity:.5; }
-
-/* Carousel nav */
-.car-btn {
-  position: absolute;
-  top: calc(50% - 28px);
-  transform: translateY(-50%);
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  border: 1.5px solid var(--gold);
-  background: rgba(59,10,26,.55);
+  font-size: .9rem;
   color: var(--gold-lt);
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: flex; align-items:center; justify-content:center;
-  backdrop-filter: blur(4px);
-  transition: background .2s ease;
-  z-index: 5;
-}
-.car-btn:hover { background: rgba(59,10,26,.85); }
-.car-prev { left:4px; }
-.car-next { right:4px; }
-
-.car-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.car-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: rgba(200,146,42,.28);
-  border: none;
-  cursor: pointer;
-  transition: all .3s ease;
-}
-.car-dot.active {
-  width: 22px;
-  border-radius: 4px;
-  background: var(--gold);
-}
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+  letter-spacing: .05em;
+  text-align: center;
 
 /* Maps button */
 .maps-btn {
@@ -1001,7 +978,6 @@ img { display:block; max-width:100%; }
   .title-main  { font-size:4rem; }
   .hero-idol-wrap { width:260px; height:330px; }
   .hero-idol   { width:260px; height:330px; }
-  .carousel-slide { width:280px; }
 }
 
 @media (min-width:768px) {
