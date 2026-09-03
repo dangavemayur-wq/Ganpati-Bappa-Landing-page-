@@ -13,6 +13,9 @@
 </head>
 <body>
 
+  <!-- ─── FLOATING PETALS & SPARKLES CANVAS ─── -->
+  <canvas id="petal-canvas" aria-hidden="true"></canvas>
+
   <!-- ─── STICKY TOP BAR ─── -->
   <header class="topbar" id="topbar">
     <span class="topbar-title">॥ श्री गणेशाय नमः ॥</span>
@@ -113,13 +116,16 @@
           <span class="notch notch-l"></span>
           <span class="notch notch-r"></span>
           <div class="ticket-body">
-            <p class="ticket-label">कुटुंबाचे नाव</p>
+            <p class="ticket-label">॥ सस्नेह निमंत्रक ॥</p>
             <h3 class="ticket-family">घोले परिवार</h3>
             <div class="ticket-rule"></div>
             <p class="ticket-addr">
-              मुंबई, महाराष्ट्र
+              <strong>श्री. निनाद संतोष घोले</strong><br/>
+              डी/४०१, प्लॅटिनम हाईट, खंडागले कंपाउंड,<br/>
+              गाढव नाका जवळ, उत्कर्ष नगर रोड,<br/>
+              भांडुप (पश्चिम), मुंबई - ४०००७८
             </p>
-            <p class="ticket-welcome">✦ आपले सस्नेह स्वागत आहे ✦</p>
+            <p class="ticket-welcome">✦ आपले सहकुटुंब सस्नेह स्वागत आहे ✦</p>
           </div>
         </div>
       </div>
@@ -129,13 +135,13 @@
     <section id="s-host" class="section s-host" aria-label="Host">
       <div class="sec-inner reveal">
         <div class="host-card">
-          <!-- PLACEHOLDER: Replace src with actual host photo -->
+          <!-- Host Icon / Photo -->
           <div class="host-photo-ring">
             <div class="host-photo-placeholder">
               <span class="host-photo-om">🪔</span>
             </div>
           </div>
-          <h3 class="host-name">श्री. निनाद घोले</h3>
+          <h3 class="host-name">श्री. निनाद संतोष घोले</h3>
           <p class="host-sub">सहर्ष निमंत्रण</p>
           <div class="host-divider"></div>
           <p class="host-family-line">घोले कुटुंबाकडून</p>
@@ -152,14 +158,16 @@
       </div>
       <div class="sec-inner reveal">
         <h2 class="sched-heading">॥ कार्यक्रम ॥</h2>
-        <div class="sched-list">
+        
+        <!-- Vertical Timeline Container -->
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
 
-          <!-- Card 1 – सत्यनारायण पूजा + महाप्रसाद -->
-          <div class="sched-card sub-event">
-            <span class="notch notch-l"></span>
-            <span class="notch notch-r"></span>
-            <div class="sub-label">उपआयोजन</div>
-            <div class="sched-card-inner">
+          <!-- Item 1 – सत्यनारायण पूजा -->
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content" style="--card-idx: 1;">
+              <div class="sub-label">उपआयोजन</div>
               <h3 class="sched-title">सत्यनारायण पूजा</h3>
               <p class="sched-date">१६ ऑगस्ट २०२६</p>
               <div class="sched-times">
@@ -175,11 +183,10 @@
             </div>
           </div>
 
-          <!-- Card 2 – प्राणप्रतिष्ठा -->
-          <div class="sched-card">
-            <span class="notch notch-l"></span>
-            <span class="notch notch-r"></span>
-            <div class="sched-card-inner">
+          <!-- Item 2 – प्राणप्रतिष्ठा -->
+          <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content" style="--card-idx: 2;">
               <div class="sched-day-badge">दिवस १</div>
               <h3 class="sched-title">प्राणप्रतिष्ठा (स्थापना)</h3>
               <p class="sched-date">१४ सप्टेंबर २०२६</p>
@@ -192,22 +199,20 @@
             </div>
           </div>
 
-          <!-- Card 3 – अथर्वशीर्ष पठण -->
-          <div class="sched-card">
-            <span class="notch notch-l"></span>
-            <span class="notch notch-r"></span>
-            <div class="sched-card-inner">
+          <!-- Item 3 – अथर्वशीर्ष पठण -->
+          <div class="timeline-item left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content" style="--card-idx: 3;">
               <div class="sched-day-badge">दररोज</div>
               <h3 class="sched-title">अथर्वशीर्ष पठण</h3>
               <p class="sched-date">१४ – १९ सप्टेंबर</p>
             </div>
           </div>
 
-          <!-- Card 4 – विसर्जन -->
-          <div class="sched-card farewell-card">
-            <span class="notch notch-l"></span>
-            <span class="notch notch-r"></span>
-            <div class="sched-card-inner">
+          <!-- Item 4 – विसर्जन -->
+          <div class="timeline-item right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content farewell-card" style="--card-idx: 4;">
               <div class="sched-day-badge farewell-badge">अंतिम</div>
               <h3 class="sched-title">विसर्जन</h3>
               <p class="sched-date">१९ सप्टेंबर २०२६</p>
@@ -220,7 +225,7 @@
             </div>
           </div>
 
-        </div><!-- /sched-list -->
+        </div><!-- /timeline-container -->
       </div>
     </section>
 
@@ -251,6 +256,78 @@
             हीच विनंती. आपली उपस्थिती हीच आमच्यासाठी सर्वात मोठी भेट आहे.
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- ─── SECTION 8 · GANPATI MURTI REVEAL ─── -->
+    <section id="s-reveal" class="section s-reveal" aria-label="Ganpati Murti Reveal">
+      <div class="sec-inner reveal">
+        <div class="reveal-header">
+          <span class="reveal-badge">॥ बाप्पांचे दर्शन ॥</span>
+          <h2 class="reveal-heading">गणपती बाप्पाची मूर्ती २०२६</h2>
+          <div class="gold-divider">
+            <span class="gd-line"></span>
+            <span class="gd-icon">🪔</span>
+            <span class="gd-line"></span>
+          </div>
+          <p class="reveal-sub">या वर्षीचे बाप्पांचे मनमोहक रूप</p>
+        </div>
+
+        <!-- Grand Royal Mandap / Temple Stage Frame -->
+        <div class="mandap-stage" id="reveal-stage">
+          <!-- Ornate Golden Toran Arch Top -->
+          <div class="mandap-arch" aria-hidden="true">
+            <span class="arch-left-bell">🔔</span>
+            <span class="arch-center">॥ श्री गणेशाय नमः ॥</span>
+            <span class="arch-right-bell">🔔</span>
+          </div>
+
+          <!-- Murti Viewport & Stage Center -->
+          <div class="murti-viewport">
+            <!-- Background Divine Glow Aura -->
+            <div class="divine-aura" aria-hidden="true"></div>
+
+            <!-- Murti Idol -->
+            <img src="golden-ganesha-statue_1213593-5826.avif" alt="गणपती बाप्पा २०२६" class="murti-reveal-img" id="murti-img" />
+
+            <!-- Murti Bottom Tag -->
+            <div class="murti-caption">
+              <span class="murti-mantra">॥ ॐ गं गणपतये नमः ॥</span>
+            </div>
+
+            <!-- Royal Red Velvet Curtains -->
+            <div class="velvet-curtain velvet-curtain-left">
+              <div class="curtain-pleats"></div>
+              <div class="curtain-gold-trim"></div>
+              <div class="curtain-fringe"></div>
+            </div>
+            <div class="velvet-curtain velvet-curtain-right">
+              <div class="curtain-pleats"></div>
+              <div class="curtain-gold-trim"></div>
+              <div class="curtain-fringe"></div>
+            </div>
+
+            <!-- Center Diya Knot (disappears when opened) -->
+            <div class="curtain-center-knot" id="curtain-knot">
+              <span class="knot-diya">🪔</span>
+            </div>
+
+            <!-- Interactive Floating Tap Prompt -->
+            <div class="curtain-prompt" id="curtain-prompt">
+              <span class="prompt-icon">👆</span>
+              <span class="prompt-text">पडदा उघडण्यासाठी स्पर्श करा</span>
+            </div>
+          </div>
+
+          <!-- Mandap Stage Base Pedestal -->
+          <div class="mandap-base" aria-hidden="true">
+            <span class="base-text">॥ गणपती बाप्पा मोरया, मंगलमूर्ती मोरया ॥</span>
+          </div>
+        </div>
+
+        <p class="reveal-blessing-note">
+          बाप्पाचे हे रूप आपल्या परिवारात सुख, समृद्धी आणि शांती घेऊन येवो!
+        </p>
       </div>
     </section>
 

@@ -3,7 +3,7 @@
  * ─ Curtain-reveal splash
  * ─ Sticky top-bar show/hide
  * ─ IntersectionObserver scroll reveal
- * ─ Touch/mouse swipe carousel with auto-play
+ * ─ Floating marigold petals & gold sparkles particle canvas
  */
 
 /* ═══════════════════════════════════════
@@ -11,14 +11,15 @@
 ═══════════════════════════════════════ */
 const CONTENT = {
   familyName:   'घोले परिवार',
-  hostName:     'श्री. निनाद घोले',
+  hostName:     'श्री. निनाद संतोष घोले',
   hostPhone:    '+919999999999',
-  hostCity:     'मुंबई, महाराष्ट्र',
-  mapsLink:     'https://maps.google.com/?q=Mumbai+Maharashtra',
+  hostAddress:  'डी/४०१, प्लॅटिनम हाईट, खंडागले कंपाउंड, गाढव नाका जवळ, उत्कर्ष नगर रोड, भांडुप (पश्चिम), मुंबई - ४०००७८',
+  hostCity:     'भांडुप (पश्चिम), मुंबई',
+  mapsLink:     'https://maps.google.com/?q=Bhandup+West+Mumbai+400078',
   year:         '२०२६',
 
   events: [
-    { label:'उपआयोजन', title:'सत्यनारायण पूजा',   date:'१६ ऑगस्ट २०२६',    times:['🌆 सायंकाळी ८:००', '३१६ महाप्रसाद'] },
+    { label:'उपआयोजन', title:'सत्यनारायण पूजा',   date:'१६ ऑगस्ट २०२६',    times:['🌆 सायंकाळी ८:००', 'महाप्रसाद'] },
     { label:'दिवस १',  title:'प्राणप्रतिष्ठा (स्थापना)', date:'१४ सप्टेंबर २०२६', times:['🌅 सकाळी १०:००'] },
     { label:'दररोज',  title:'अथर्वशीर्ष पठण',       date:'१४ – १९ सप्टेंबर', times:[] },
     { label:'अंतिम',   title:'विसर्जन',               date:'१९ सप्टेंबर २०२६', times:['🌆 सायंकाळी ४:००'] },
@@ -35,11 +36,9 @@ const CONTENT = {
   const splashBtn  = document.getElementById('splash-btn');
   const main       = document.getElementById('main');
   const topbar     = document.getElementById('topbar');
-  const btnMaps    = document.getElementById('btn-maps');
   const btnCall    = document.getElementById('btn-call');
 
   // Patch live content from variables
-  if (btnMaps) btnMaps.href = CONTENT.mapsLink;
   if (btnCall) btnCall.href = 'tel:' + CONTENT.hostPhone;
 
   /* ── Body locked on load ── */
@@ -58,11 +57,16 @@ const CONTENT = {
     setTimeout(() => {
       splash.style.display = 'none';
       initReveal();
+      initTimelineScroll();
+      initMurtiReveal();
+      initPetals();
     }, 800);
   }
 
-  splashBtn.addEventListener('click', dismissSplash);
-  splashBtn.addEventListener('touchend', (e) => { e.preventDefault(); dismissSplash(); });
+  if (splashBtn) {
+    splashBtn.addEventListener('click', dismissSplash);
+    splashBtn.addEventListener('touchend', (e) => { e.preventDefault(); dismissSplash(); });
+  }
 
   /* ──────────────────────────────────────
      INTERSECTION OBSERVER — SCROLL REVEAL
@@ -76,131 +80,148 @@ const CONTENT = {
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
 
     targets.forEach(el => io.observe(el));
   }
 
   /* ──────────────────────────────────────
-     CAROUSEL
+     TIMELINE INDIVIDUAL SCROLL REVEAL
   ────────────────────────────────────── */
-  function initCarousel() {
-    const track     = document.getElementById('carousel-track');
-    const prevBtn   = document.getElementById('car-prev');
-    const nextBtn   = document.getElementById('car-next');
-    const dotsWrap  = document.getElementById('car-dots');
+  function initTimelineScroll() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    if (!timelineItems.length) return;
 
-    if (!track) return;
-
-    const slides = Array.from(track.querySelectorAll('.carousel-slide'));
-    let current  = 0;
-    let slideW   = 0;
-    let gap      = 14;
-    let autoplay = null;
-    let isDrag   = false;
-    let dragStartX = 0;
-    let dragCurrentX = 0;
-    let prevTranslate = 0;
-    let currentTranslate = 0;
-
-    // Build dots
-    slides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'car-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-      dot.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(dot);
+    const timelineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          timelineObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -40px 0px'
     });
 
-    function measure() {
-      slideW = slides[0] ? slides[0].offsetWidth : 0;
+    timelineItems.forEach((item, index) => {
+      item.style.setProperty('--item-delay', `${index * 0.15}s`);
+      timelineObserver.observe(item);
+    });
+  }
+
+  /* ──────────────────────────────────────
+     MURTI REVEAL (SCROLL & CLICK)
+  ────────────────────────────────────── */
+  function initMurtiReveal() {
+    const revealSection = document.getElementById('s-reveal');
+    const stage = document.getElementById('reveal-stage');
+    if (!revealSection || !stage) return;
+
+    let hasRevealed = false;
+
+    function openCurtains() {
+      if (!hasRevealed) {
+        hasRevealed = true;
+        revealSection.classList.add('open');
+      }
     }
 
-    function goTo(idx) {
-      if (idx < 0) idx = 0;
-      if (idx >= slides.length) idx = slides.length - 1;
-      current = idx;
-      const offset = -(slideW + gap) * current;
-      currentTranslate = offset;
-      prevTranslate = offset;
-      track.style.transform = `translateX(${offset}px)`;
-      // Dots
-      dotsWrap.querySelectorAll('.car-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
+    // Scroll trigger (triggers when stage enters viewport)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasRevealed) {
+          setTimeout(openCurtains, 350); // smooth short delay on scroll
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    
+    observer.observe(stage);
+
+    // Click/Touch manual trigger on entire stage
+    stage.addEventListener('click', openCurtains);
+    stage.addEventListener('touchstart', () => {
+      openCurtains();
+    }, { passive: true });
+  }
+
+  /* ──────────────────────────────────────
+     FLOATING PETALS & SPARKLES ANIMATION
+  ────────────────────────────────────── */
+  function initPetals() {
+    const canvas = document.getElementById('petal-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const count = 10;
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: 2.5 + Math.random() * 3,
+        speedY: 0.25 + Math.random() * 0.45,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.018,
+        color: Math.random() > 0.4 ? '#F5A623' : (Math.random() > 0.5 ? '#DAA520' : '#FFD700'),
+        opacity: 0.25 + Math.random() * 0.35,
+        isSparkle: Math.random() > 0.65
       });
     }
 
-    prevBtn.addEventListener('click', () => { stopAuto(); goTo(current - 1); });
-    nextBtn.addEventListener('click', () => { stopAuto(); goTo(current + 1); });
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
 
-    // Touch
-    track.addEventListener('touchstart', e => {
-      isDrag = true;
-      dragStartX = e.touches[0].clientX;
-      track.classList.add('dragging');
-    }, { passive: true });
+      particles.forEach((p) => {
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.012) * 0.6;
+        p.rotation += p.rotationSpeed;
 
-    track.addEventListener('touchmove', e => {
-      if (!isDrag) return;
-      dragCurrentX = e.touches[0].clientX;
-      const diff = dragCurrentX - dragStartX;
-      track.style.transform = `translateX(${prevTranslate + diff}px)`;
-    }, { passive: true });
+        if (p.y > height + 20) {
+          p.y = -20;
+          p.x = Math.random() * width;
+        }
 
-    track.addEventListener('touchend', () => {
-      isDrag = false;
-      track.classList.remove('dragging');
-      const moved = dragCurrentX - dragStartX;
-      if (moved < -50) goTo(current + 1);
-      else if (moved > 50) goTo(current - 1);
-      else goTo(current);
-    });
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.globalAlpha = p.opacity;
 
-    // Mouse
-    track.addEventListener('mousedown', e => {
-      isDrag = true;
-      dragStartX = e.clientX;
-      track.classList.add('dragging');
-      e.preventDefault();
-    });
-    document.addEventListener('mousemove', e => {
-      if (!isDrag) return;
-      dragCurrentX = e.clientX;
-      const diff = dragCurrentX - dragStartX;
-      track.style.transform = `translateX(${prevTranslate + diff}px)`;
-    });
-    document.addEventListener('mouseup', () => {
-      if (!isDrag) return;
-      isDrag = false;
-      track.classList.remove('dragging');
-      const moved = dragCurrentX - dragStartX;
-      if (moved < -50) goTo(current + 1);
-      else if (moved > 50) goTo(current - 1);
-      else goTo(current);
-    });
+        if (p.isSparkle) {
+          ctx.fillStyle = '#FFD700';
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = '#FFD700';
+          ctx.beginPath();
+          ctx.arc(0, 0, p.radius * 0.6, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = p.color;
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = '#F5A623';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.radius * 1.5, p.radius * 0.75, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
-    // Auto-play
-    function startAuto() {
-      autoplay = setInterval(() => {
-        goTo(current < slides.length - 1 ? current + 1 : 0);
-      }, 3800);
-    }
-    function stopAuto() {
-      clearInterval(autoplay);
+        ctx.restore();
+      });
+
+      requestAnimationFrame(animate);
     }
 
-    // Observe prep section to start/stop autoplay
-    const prepSec = document.getElementById('s-prep');
-    if (prepSec) {
-      new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) startAuto();
-        else stopAuto();
-      }, { threshold: 0.3 }).observe(prepSec);
-    }
-
-    // Init
-    window.addEventListener('load', () => { measure(); goTo(0); });
-    window.addEventListener('resize', () => { measure(); goTo(current); });
+    animate();
   }
+
+  // Also trigger petals on load
+  window.addEventListener('DOMContentLoaded', initPetals);
 
 })();
