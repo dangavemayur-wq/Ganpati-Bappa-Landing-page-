@@ -126,13 +126,13 @@ img { display:block; max-width:100%; }
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 24px 0;
+  padding: 6px 0;
 }
 
 .sec-inner {
   width: 100%;
   max-width: 440px;
-  padding: 14px 18px;
+  padding: 6px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,8 +302,8 @@ main {
 ════════════════════════════════════════════════ */
 .s-title {
   background: transparent;
-  padding-top: 56px;
-  padding-bottom: 20px;
+  padding-top: 44px;
+  padding-bottom: 4px;
 }
 
 .title-glow-wrap {
@@ -376,7 +376,7 @@ main {
 ════════════════════════════════════════════════ */
 .s-hero {
   background: transparent;
-  padding: 20px 0;
+  padding: 4px 0 8px;
 }
 
 .hero-idol-wrap {
@@ -446,7 +446,7 @@ main {
 ════════════════════════════════════════════════ */
 .s-family {
   background: transparent;
-  padding: 20px 0;
+  padding: 4px 0 6px;
 }
 
 .orange-banner {
@@ -541,13 +541,13 @@ main {
 ════════════════════════════════════════════════ */
 .s-host {
   background: transparent;
-  padding: 20px 0 36px;
+  padding: 6px 0 16px;
 }
 
 .host-card {
   background: #fff;
   border-radius: 8px;
-  padding: 38px 24px;
+  padding: 24px 24px 28px;
   width: 100%;
   box-shadow: 0 4px 22px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
   border: 1px solid rgba(200,146,42,.15);
