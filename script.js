@@ -12,14 +12,14 @@
 const CONTENT = {
   familyName:   'घोले परिवार',
   hostName:     'श्री. निनाद संतोष घोले',
-  hostPhone:    '+919999999999',
+  hostPhone:    '+918779638499',
   hostAddress:  'डी/४०१, प्लॅटिनम हाईट, खंडागले कंपाउंड, गाढव नाका जवळ, उत्कर्ष नगर रोड, भांडुप (पश्चिम), मुंबई - ४०००७८',
   hostCity:     'भांडुप (पश्चिम), मुंबई',
   mapsLink:     'https://maps.google.com/?q=Bhandup+West+Mumbai+400078',
   year:         '२०२६',
 
   events: [
-    { label:'उपआयोजन', title:'सत्यनारायण पूजा',   date:'१६ ऑगस्ट २०२६',    times:['🌆 सायंकाळी ८:००', 'महाप्रसाद'] },
+    { label:'',       title:'सत्यनारायण पूजा',   date:'१६ ऑगस्ट २०२६',    times:['🌆 सायंकाळी ८:००', 'महाप्रसाद'] },
     { label:'दिवस १',  title:'प्राणप्रतिष्ठा (स्थापना)', date:'१४ सप्टेंबर २०२६', times:['🌅 सकाळी १०:००'] },
     { label:'दररोज',  title:'अथर्वशीर्ष पठण',       date:'१४ – १९ सप्टेंबर', times:[] },
     { label:'अंतिम',   title:'विसर्जन',               date:'१९ सप्टेंबर २०२६', times:['🌆 सायंकाळी ४:००'] },
@@ -32,14 +32,18 @@ const CONTENT = {
 (function () {
   'use strict';
 
-  const splash     = document.getElementById('splash');
-  const splashBtn  = document.getElementById('splash-btn');
-  const main       = document.getElementById('main');
-  const topbar     = document.getElementById('topbar');
-  const btnCall    = document.getElementById('btn-call');
+  const splash        = document.getElementById('splash');
+  const splashBtn     = document.getElementById('splash-btn');
+  const main          = document.getElementById('main');
+  const topbar        = document.getElementById('topbar');
+  const btnCall       = document.getElementById('btn-call');
+  const hostPhoneLink = document.getElementById('host-phone-link');
+  const hostPhoneVal  = document.getElementById('host-phone-val');
 
   // Patch live content from variables
   if (btnCall) btnCall.href = 'tel:' + CONTENT.hostPhone;
+  if (hostPhoneLink) hostPhoneLink.href = 'tel:' + CONTENT.hostPhone;
+  if (hostPhoneVal) hostPhoneVal.textContent = '8779638499';
 
   /* ── Body locked on load ── */
   document.body.classList.add('splash-open');
