@@ -96,21 +96,25 @@ const CONTENT = {
     const timelineItems = document.querySelectorAll('.timeline-item');
     if (!timelineItems.length) return;
 
-    const timelineObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          timelineObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.2,
-      rootMargin: '0px 0px -40px 0px'
-    });
-
+    // Each item observed individually so it triggers as it enters the viewport
     timelineItems.forEach((item, index) => {
-      item.style.setProperty('--item-delay', `${index * 0.15}s`);
-      timelineObserver.observe(item);
+      // Stagger delay: left/right items get a slight cascade
+      item.style.setProperty('--item-delay', `${index * 0.12}s`);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        // On mobile (small screens) we start the animation sooner
+        rootMargin: '0px 0px -20px 0px'
+      });
+
+      observer.observe(item);
     });
   }
 
