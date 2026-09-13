@@ -1,0 +1,19 @@
+{
+  "name": "गणपती बाप्पा — निमंत्रण पत्रिका २०२६",
+  "short_name": "गणपती बाप्पा",
+  "description": "घोले परिवाराकडून गणेश चतुर्थी २०२६ निमंत्रण पत्रिका",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2C0512",
+  "theme_color": "#3B0A1A",
+  "icons": [
+    {
+      "src": "ganesh-garuda.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -232,4 +232,17 @@ const CONTENT = {
   // Also trigger petals on load
   window.addEventListener('DOMContentLoaded', initPetals);
 
+  // Register Service Worker for Offline capability
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((reg) => {
+          console.log('Service Worker registered successfully for offline use:', reg.scope);
+        })
+        .catch((err) => {
+          console.log('Service Worker registration failed:', err);
+        });
+    });
+  }
+
 })();

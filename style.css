@@ -27,8 +27,8 @@
   --text-dk:     #2D1600;
   --text-cream:  #FFF0CC;
   --shadow-gold: 0 0 32px rgba(218,165,32,.22);
-  --f-display:   'Noto Sans Devanagari', sans-serif;
-  --f-body:      'Noto Sans Devanagari', sans-serif;
+  --f-display:   'Noto Sans Devanagari', 'Yatra One', 'Nirmala UI', 'Mangal', system-ui, -apple-system, sans-serif;
+  --f-body:      'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', system-ui, -apple-system, sans-serif;
   --bar-h:       48px;
 }
 
