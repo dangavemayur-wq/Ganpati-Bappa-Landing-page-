@@ -316,6 +316,7 @@ main {
   width: 140px;
   height: 140px;
   object-fit: cover;
+  object-position: center 18%;
   border-radius: 50%;
   border: 2px solid rgba(200,146,42,.4);
   position: relative;
@@ -398,6 +399,7 @@ main {
   width: 240px;
   height: 300px;
   object-fit: cover;
+  object-position: center 30%;
   border-radius: 12px;
   border: 2px solid rgba(200,146,42,.38);
   box-shadow:
@@ -405,7 +407,7 @@ main {
     0 12px 36px rgba(0,0,0,.18);
   position: relative;
   z-index: 2;
-  filter: brightness(1.05) contrast(1.03) saturate(1.06);
+  filter: brightness(1.03) contrast(1.02);
   transition: transform .4s ease;
 }
 .hero-idol:hover { transform: scale(1.025); }
