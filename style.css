@@ -399,7 +399,7 @@ main {
   width: 240px;
   height: 300px;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center top;
   border-radius: 12px;
   border: 2px solid rgba(200,146,42,.38);
   box-shadow:
